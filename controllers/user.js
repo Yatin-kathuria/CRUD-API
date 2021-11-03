@@ -1,9 +1,10 @@
+const UserDtos = require("../dtos/user");
 const userModal = require("../model/user");
 const authenticationService = require("../Services/authentication");
 const hashService = require("../Services/hashService");
 
 class User {
-  createUser(req, res) {
+  async createUser(req, res) {
     try {
       const { name, email, password } = req.body;
       if (!name || !email || !password) {
@@ -18,13 +19,72 @@ class User {
       }
 
       const hashPassword = await hashService.encryptPassword(password);
-      await userModal.create({
+      const savedUser = await userModal.create({
         ...req.body,
         name,
         email,
         password: hashPassword,
       });
-      res.json({ message: "User is succefully registered." });
+      res.json({
+        message: "User is succefully registered.",
+        id: savedUser._id,
+      });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  async deleteUser(req, res) {
+    try {
+      const { id } = req.params;
+      await userModal.deleteOne({ _id: id }).exec();
+      res.json({ message: "User is succefully deleted.", id });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  async singleUser(req, res) {
+    try {
+      const { id } = req.params;
+      const user = await userModal.findOne({ _id: id }).exec();
+      if (!user) {
+        throw new Error("Invalid user id provided");
+      }
+      res.json({ message: "User Found", user: new UserDtos(user) });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  async listUser(req, res) {
+    try {
+      // const filter = req.query.filter || "ad";
+      let fields = req.query.fields || "name,email";
+      const page = req.query.page || 1;
+      const limitPerPage = req.query.limit || 5;
+      const sort = req.query.sort || "name";
+      const order = req.query.order || -1;
+      fields = fields.split(",").join(" ");
+
+      const users = await userModal
+        .find({})
+        .select(fields)
+        .skip((page - 1) * limitPerPage)
+        .limit(Number(limitPerPage))
+        .sort({ [sort]: order });
+
+      res.json({ users });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  async updateUser(req, res) {
+    try {
+      const { id } = req.params;
+      await userModal.update({ _id: id }, req.body);
+      res.json({ message: "User updated" });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
