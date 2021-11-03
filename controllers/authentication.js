@@ -62,6 +62,25 @@ class Authentication {
       res.status(400).json({ error: error.message });
     }
   }
+
+  async verify(req, res) {
+    try {
+      const { id } = req.body;
+      if (!id) {
+        throw new Error("All Fields are mandatory");
+      }
+      const user = await userModal.findById({ _id: id }).exec();
+      if (!user) {
+        throw new Error("Invalid user ID");
+      }
+
+      user.verified = true;
+      await user.save();
+      res.json({ message: "User verified succefully" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new Authentication();
