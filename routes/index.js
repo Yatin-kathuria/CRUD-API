@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const authentication = require("../controllers/authentication");
+const city = require("../controllers/city");
 const user = require("../controllers/user");
 
 const middleware = require("../middleware/index");
@@ -31,5 +32,8 @@ router.put(
   middleware.requireAdmin,
   user.updateUser
 );
+
+// City
+router.post("/cities", middleware.requireLogin, city.createCity);
 
 module.exports = router;
