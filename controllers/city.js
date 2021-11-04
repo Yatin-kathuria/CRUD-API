@@ -53,6 +53,20 @@ class City {
       res.status(400).json({ error: error.message });
     }
   }
+
+  async updateCity(req, res) {
+    try {
+      const { id } = req.params;
+      const { name } = req.body;
+      if (!name) {
+        throw new Error("Name field is required");
+      }
+      await cityModal.updateOne({ _id: id }, { name });
+      res.json({ message: "City updated" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new City();
