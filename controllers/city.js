@@ -21,6 +21,15 @@ class City {
       res.status(400).json({ error: error.message });
     }
   }
+
+  async getCities(req, res) {
+    try {
+      const cities = await cityModal.find({});
+      res.json({ cities: cities.map((city) => new CityDtos(city)) });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new City();
