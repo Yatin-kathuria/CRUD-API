@@ -11,6 +11,8 @@ router.post("/register", authentication.register);
 router.post("/login", authentication.login);
 router.post("/verify", middleware.requireLogin, authentication.verify);
 router.get("/token", middleware.requireLogin, authentication.token);
+router.post("/forgot", authentication.forgetPassword);
+router.post("/reset", authentication.resetPassword);
 
 // User
 router.post(

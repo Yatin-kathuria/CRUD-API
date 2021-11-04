@@ -93,6 +93,57 @@ class Authentication {
       res.status(400).json({ error: error.message });
     }
   }
+
+  async forgetPassword(req, res) {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        throw new Error("All Fields are mandatory");
+      }
+      if (!authenticationService.validateEmail(email)) {
+        throw new Error("Invalid Email");
+      }
+      const savedUser = await userModal.findOne({ email });
+      if (!savedUser) {
+        throw new Error("User not exist with this email ID");
+      }
+      const token = hashService.generateForgetPasswordToken({ email });
+      res.json({
+        token,
+        message:
+          "send this token to us during reset the password in Id field within 10 minutes.",
+      });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  async resetPassword(req, res) {
+    try {
+      const { token, password } = req.body;
+      if (!token && !password) {
+        throw new Error("All Fields are mandatory");
+      }
+
+      const { email } = hashService.verifyForgetPasswordToken(token);
+      const savedUser = await userModal.findOne({ email });
+      const isPasswordMatch = await hashService.decryptPassword(
+        password,
+        savedUser.password
+      );
+
+      if (isPasswordMatch) {
+        throw new Error("Old and New Password must be different.");
+      }
+
+      const hashPassword = await hashService.encryptPassword(password);
+      savedUser.password = hashPassword;
+      await savedUser.save();
+      res.json({ message: "Password Updated successfully" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new Authentication();

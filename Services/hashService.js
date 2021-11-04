@@ -16,6 +16,17 @@ class HashService {
   async decryptPassword(password, hashPassword) {
     return await bcrypt.compare(password, hashPassword);
   }
+
+  generateForgetPasswordToken(payload) {
+    const token = jwt.sign(payload, process.env.FORGET_PASSWORD_SECRET, {
+      expiresIn: Date.now() + 10 * 1000, // 10 mins
+    });
+    return token;
+  }
+
+  verifyForgetPasswordToken(token) {
+    return jwt.verify(token, process.env.FORGET_PASSWORD_SECRET);
+  }
 }
 
 module.exports = new HashService();
