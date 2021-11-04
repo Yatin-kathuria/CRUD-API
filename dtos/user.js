@@ -7,16 +7,20 @@ class UserDtos {
   city;
   country;
   verified;
+  urlTwitter;
+  urlGitHub;
 
-  constructor({ name, email, _id, role, phone, city, country, verified }) {
-    this.name = name;
-    this.email = email;
-    this._id = _id;
-    this.role = role;
-    this.phone = phone;
-    this.city = city;
-    this.country = country;
-    this.verified = verified;
+  constructor(user) {
+    this.name = user?.name;
+    this.email = user?.email;
+    this._id = user?._id;
+    this.role = user?.role;
+    this.phone = user?.phone;
+    this.city = user?.city;
+    this.country = user?.country;
+    this.verified = user?.verified;
+    this.urlTwitter = user?.urlTwitter;
+    this.urlGitHub = user?.urlGitHub;
   }
 }
 

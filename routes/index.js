@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const authentication = require("../controllers/authentication");
 const city = require("../controllers/city");
+const profile = require("../controllers/profile");
 const user = require("../controllers/user");
 
 const middleware = require("../middleware/index");
@@ -43,5 +44,8 @@ router.get("/cities/:id", middleware.requireLogin, city.singleCity);
 router.delete("/cities/:id", middleware.requireLogin, city.deleteCity);
 router.put("/cities/:id", middleware.requireLogin, city.updateCity);
 router.get("/cities", middleware.requireLogin, city.listCity);
+
+// Profile
+router.get("/profile", middleware.requireLogin, profile.getProfile);
 
 module.exports = router;

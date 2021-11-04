@@ -1,6 +1,6 @@
 const UserDtos = require("../dtos/user");
 const userModal = require("../model/user");
-const authenticationService = require("../Services/authentication");
+const validatorService = require("../Services/validator");
 const hashService = require("../Services/hashService");
 
 class User {
@@ -10,7 +10,7 @@ class User {
       if (!name || !email || !password) {
         throw new Error("All Fields are mandatory");
       }
-      if (!authenticationService.validateEmail(email)) {
+      if (!validatorService.validateEmail(email)) {
         throw new Error("Invalid Email");
       }
       const user = await userModal.findOne({ email }).exec();
