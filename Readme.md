@@ -162,3 +162,55 @@ Basic Profile CRUD operation
     --header 'Content-Type: application/x-www-form-urlencoded'
     --data-urlencode 'oldPassword=12345'
     --data-urlencode 'newPassword=12345'
+
+# Cities CRUD
+
+Basic Cities CRUD operation
+
+## Cities List
+
+`GET /cities/all`
+
+    curl --location -g --request GET 'http://[DOMAIN]:[PORT]/cities/all'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+
+## Cities List with Condition
+
+`GET /cities?filter=Bucaramanga&fields=name&page=1&limit=5&sort=name&order=1`
+
+    curl --location -g --request GET 'http://[DOMAIN]:[PORT]/cities?filter=Bucaramanga&fields=name&page=1&limit=5&sort=name&order=1'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+
+## City Creation
+
+`POST /cities`
+
+    curl --location -g --request POST 'http://[DOMAIN]:[PORT]/cities'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'name=Miami'
+
+## Single City Fetch
+
+`GET /cities/5bd08db979bbc504c14ebfdd`
+
+    curl --location -g --request GET 'http://[DOMAIN]:[PORT]/cities/5bd08db979bbc504c14ebfdd'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+    --header 'Accept-Language: es'
+
+## City Update
+
+`PATCH /cities/5bd08db979bbc504c14ebfdd`
+
+    curl --location -g --request PATCH 'http://[DOMAIN]:[PORT]/cities/5bd08db979bbc504c14ebfdd'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'name=Seatle2'
+
+## City Deletion
+
+`DELETE /cities/5b38171b1843d58427c5d6c4`
+
+    curl --location -g --request DELETE 'http://[DOMAIN]:[PORT]/cities/5b38171b1843d58427c5d6c4'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+    --data-urlencode 'name=Seatle2'
