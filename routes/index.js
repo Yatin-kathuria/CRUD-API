@@ -48,5 +48,10 @@ router.get("/cities", middleware.requireLogin, city.listCity);
 // Profile
 router.get("/profile", middleware.requireLogin, profile.getProfile);
 router.put("/profile", middleware.requireLogin, profile.updateProfile);
+router.post(
+  "/profile/changePassword",
+  middleware.requireLogin,
+  profile.changePassword
+);
 
 module.exports = router;

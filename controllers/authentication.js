@@ -121,7 +121,7 @@ class Authentication {
   async resetPassword(req, res) {
     try {
       const { token, password } = req.body;
-      if (!token && !password) {
+      if (!token || !password) {
         throw new Error("All Fields are mandatory");
       }
 
