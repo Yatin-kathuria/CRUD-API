@@ -39,5 +39,6 @@ router.get("/cities/all", middleware.requireLogin, city.getCities);
 router.get("/cities/:id", middleware.requireLogin, city.singleCity);
 router.delete("/cities/:id", middleware.requireLogin, city.deleteCity);
 router.put("/cities/:id", middleware.requireLogin, city.updateCity);
+router.get("/cities", middleware.requireLogin, city.listCity);
 
 module.exports = router;

@@ -67,6 +67,29 @@ class City {
       res.status(400).json({ error: error.message });
     }
   }
+
+  async listCity(req, res) {
+    try {
+      // const filter = req.query.filter || "Bucaramanga";
+      let fields = req.query.fields || "";
+      const page = req.query.page || 1;
+      const limitPerPage = req.query.limit || 5;
+      const sort = req.query.sort || "name";
+      const order = req.query.order || -1;
+      fields = fields.split(",").join(" ");
+
+      const cities = await cityModal
+        .find({})
+        .select(fields)
+        .skip((page - 1) * limitPerPage)
+        .limit(Number(limitPerPage))
+        .sort({ [sort]: order });
+
+      res.json({ cities });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new City();
