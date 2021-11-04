@@ -10,6 +10,7 @@ const middleware = require("../middleware/index");
 router.post("/register", authentication.register);
 router.post("/login", authentication.login);
 router.post("/verify", middleware.requireLogin, authentication.verify);
+router.get("/token", middleware.requireLogin, authentication.token);
 
 // User
 router.post(

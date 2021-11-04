@@ -81,6 +81,18 @@ class Authentication {
       res.status(400).json({ error: error.message });
     }
   }
+
+  async token(req, res) {
+    try {
+      const token = hashService.createToken({
+        _id: req.user._id,
+        role: req.user.role,
+      });
+      res.json({ token });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new Authentication();
