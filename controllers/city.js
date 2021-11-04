@@ -30,6 +30,19 @@ class City {
       res.status(400).json({ error: error.message });
     }
   }
+
+  async singleCity(req, res) {
+    try {
+      const { id } = req.params;
+      const city = await cityModal.findById({ _id: id });
+      if (!city) {
+        throw new Error("City not found.Please verify the City ID");
+      }
+      res.json({ city: new CityDtos(city) });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new City();

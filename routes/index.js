@@ -36,5 +36,6 @@ router.put(
 // City
 router.post("/cities", middleware.requireLogin, city.createCity);
 router.get("/cities/all", middleware.requireLogin, city.getCities);
+router.get("/cities/:id", middleware.requireLogin, city.singleCity);
 
 module.exports = router;
