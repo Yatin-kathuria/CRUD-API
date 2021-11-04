@@ -83,7 +83,7 @@ class User {
   async updateUser(req, res) {
     try {
       const { id } = req.params;
-      await userModal.update({ _id: id }, req.body);
+      await userModal.updateOne({ _id: id }, req.body);
       res.json({ message: "User updated" });
     } catch (error) {
       res.status(400).json({ error: error.message });
