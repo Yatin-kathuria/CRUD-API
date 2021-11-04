@@ -127,3 +127,38 @@ Basic User CRUD operation
     --data-urlencode 'phone=12345'
     --data-urlencode 'city=Cali'
     --data-urlencode 'country=Colombia'
+
+# Profile CRUD
+
+Basic Profile CRUD operation
+
+## Profile Fetch
+
+`GET /profile`
+
+    curl --location -g --request GET 'http://[DOMAIN]:[PORT]/profile'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+
+## Profile Update
+
+`PATCH /profile`
+
+    curl --location -g --request PATCH 'http://[DOMAIN]:[PORT]/profile'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'name=My Name'
+    --data-urlencode 'urlTwitter=https://hello.com'
+    --data-urlencode 'urlGitHub=https://hello.io'
+    --data-urlencode 'phone=444444'
+    --data-urlencode 'city=Boston2'
+    --data-urlencode 'country=Colombia2'
+
+## Change Password
+
+`POST /profile/changePassword`
+
+    curl --location -g --request POST 'http://[DOMAIN]:[PORT]/profile/changePassword'
+    --header 'Authorization: Bearer [AUTH_TOKEN_STRING]'
+    --header 'Content-Type: application/x-www-form-urlencoded'
+    --data-urlencode 'oldPassword=12345'
+    --data-urlencode 'newPassword=12345'
