@@ -47,7 +47,7 @@ class City {
   async deleteCity(req, res) {
     try {
       const { id } = req.params;
-      const city = await cityModal.deleteOne({ _id: id });
+      await cityModal.deleteOne({ _id: id });
       res.json({ city: `city with id ${id} deleted sucessfully ` });
     } catch (error) {
       res.status(400).json({ error: error.message });
