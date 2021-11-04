@@ -47,5 +47,6 @@ router.get("/cities", middleware.requireLogin, city.listCity);
 
 // Profile
 router.get("/profile", middleware.requireLogin, profile.getProfile);
+router.put("/profile", middleware.requireLogin, profile.updateProfile);
 
 module.exports = router;

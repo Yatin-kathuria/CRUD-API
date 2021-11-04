@@ -34,6 +34,14 @@ const userSchema = new Schema(
       required: false,
       default: false,
     },
+    urlTwitter: {
+      type: String,
+      required: false,
+    },
+    urlGitHub: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );
