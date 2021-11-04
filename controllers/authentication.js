@@ -1,6 +1,6 @@
 const UserDtos = require("../dtos/user");
 const userModal = require("../model/user");
-const authenticationService = require("../Services/authentication");
+const validator = require("../Services/validator");
 const hashService = require("../Services/hashService");
 
 class Authentication {
@@ -10,7 +10,7 @@ class Authentication {
       if (!name || !email || !password) {
         throw new Error("All Fields are mandatory");
       }
-      if (!authenticationService.validateEmail(email)) {
+      if (!validator.validateEmail(email)) {
         throw new Error("Invalid Email");
       }
       const user = await userModal.findOne({ email }).exec();
@@ -32,7 +32,7 @@ class Authentication {
       if (!email || !password) {
         throw new Error("All Fields are mandatory");
       }
-      if (!authenticationService.validateEmail(email)) {
+      if (!validator.validateEmail(email)) {
         throw new Error("Invalid Email");
       }
 
@@ -100,7 +100,7 @@ class Authentication {
       if (!email) {
         throw new Error("All Fields are mandatory");
       }
-      if (!authenticationService.validateEmail(email)) {
+      if (!validator.validateEmail(email)) {
         throw new Error("Invalid Email");
       }
       const savedUser = await userModal.findOne({ email });
