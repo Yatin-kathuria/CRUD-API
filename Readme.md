@@ -10,6 +10,8 @@ CRUD operation of differnt Authenication, User, Profile and Cities.
 ## Run the app
 
     npm run dev
+    or
+    npm start
 
 # Authentication
 
