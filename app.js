@@ -12,11 +12,16 @@ app.use(
     extended: true,
   })
 );
-app.get("/", (req, res) => res.json({ message: "working" }));
 
 // Routes
+app.get("/", (req, res) => res.json({ message: "working" }));
 const routes = require("./routes");
 app.use(routes);
+
+// Not Found Route
+app.use("*", function (req, res) {
+  res.status(404).json({ error: "Route Not Found" });
+});
 
 app.listen(PORT, async () => {
   await dbConnection();
