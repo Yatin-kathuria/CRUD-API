@@ -5,6 +5,7 @@ CRUD operation of differnt Authenication, User, Profile and Cities.
 ## Install
 
     npm install
+    npm install nodemon -g
 
 ## Run the app
 
